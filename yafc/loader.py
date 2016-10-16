@@ -70,7 +70,6 @@ class GameSet:
 
         self.items[name] = obj
 
-
     def _load_machine(self, item, props):
         speed = props['speed']
         machine_type = props['type']
