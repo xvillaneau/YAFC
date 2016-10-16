@@ -146,6 +146,102 @@ Processing Unit:
       qty: 2
   time: 15.0
 
+# Inserters
+Burner Inserter:
+  ingredients:
+    - name: Iron Plate
+    - name: Iron Gear Wheel
+  time: 0.5
+Inserter:
+  ingredients:
+    - name: Iron Plate
+    - name: Iron Gear Wheel
+    - name: Circuit
+  time: 0.5
+Long Handed Inserter:
+  ingredients:
+    - name: Inserter
+    - name: Iron Plate
+    - name: Iron Gear Wheel
+  time: 0.5
+Fast Inserter:
+  ingredients:
+    - name: Inserter
+    - name: Iron Plate
+      qty: 2
+    - name: Circuit
+      qty: 2
+  time: 0.5
+Filter Inserter:
+  ingredients:
+    - name: Fast Inserter
+    - name: Circuit
+      qty: 4
+  time: 0.5
+Stack Inserter:
+  ingredients:
+    - name: Fast Inserter
+    - name: Advanced Circuit
+    - name: Iron Gear Wheel
+      qty: 15
+    - name: Circuit
+      qty: 15
+  time: 0.5
+Stack Filter Inserter:
+  ingredients:
+    - name: Stack Inserter
+    - name: Circuit
+      qty: 5
+  time: 0.5
+
+# Transport Belts
+Transport Belt:
+  ingredients:
+    - name: Iron Plate
+    - name: Iron Gear Wheel
+  time: 0.5
+  produced: 2
+Underground Belt:
+  ingredients:
+    - name: Transport Belt
+      qty: 5
+    - name: Iron Plate
+      qty: 10
+  time: 1.0
+  produced: 2
+Splitter:
+  ingredients:
+    - name: Transport Belt
+      qty: 4
+    - name: Iron Plate
+      qty: 5
+    - name: Circuit
+      qty: 5
+  time: 1.0
+
+# Science Packs
+Science Pack 1:
+  ingredients:
+    - name: Copper Plate
+    - name: Iron Gear Wheel
+  time: 5.0
+Science Pack 2:
+  ingredients:
+    - name: Inserter
+    - name: Transport Belt
+  time: 6.0
+Science Pack 3:
+  ingredients:
+    - name: Battery
+    - name: Advanced Circuit
+    - name: Filter Inserter
+    - name: Steel Plate
+  time: 12.0
+Alien Science Pack:
+  ingredients:
+    - name: Alien Artifact
+  time: 12.0
+
 # Speed Modules
 Speed Module 1:
   ingredients:
