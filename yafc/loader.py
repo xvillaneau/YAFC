@@ -49,14 +49,12 @@ class GameSet:
             # Otherwise: Manufactured item
 
             ingredients = {}
-            for d in props['ingredients']:
-                i_name = d['name']
+            for i_name, i_qty in props['ingredients'].items():
 
                 if i_name not in self.items:
                     # Recursively load ingredient if not loaded yet
                     self._load_item(i_name, gs_dict)
 
-                i_qty = d.get('qty', 1)
                 ingredients[self.items[i_name]] = i_qty
 
             obj = Manufactured(
