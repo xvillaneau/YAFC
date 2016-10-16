@@ -275,7 +275,7 @@ Chemical Plant:
       qty: 5
   time: 10
   machine:
-    type: chemestry
+    type: chemistry
     speed: 1.25
 
 # Mining Machines

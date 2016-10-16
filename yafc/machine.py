@@ -10,6 +10,9 @@ class Machine:
     def __init__(self, item):
         self.item = item
 
+    def __repr__(self):
+        return self.item.name
+
 
 class Miner(Machine):
     """
