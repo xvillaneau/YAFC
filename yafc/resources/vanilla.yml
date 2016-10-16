@@ -1,0 +1,346 @@
+
+# Base components, that can't be made or mined
+Water:
+  type: basic
+Alien Artifact:
+  type: basic
+Gas:
+  type: basic
+Light Oil:
+  type: basic
+Heavy Oil:
+  type: basic
+
+# Products of mining
+Iron Ore:
+  type: mineral
+  hardness: 0.9
+  mining time: 2.0
+Copper Ore:
+  type: mineral
+  hardness: 0.9
+  mining time: 2.0
+Coal:
+  type: mineral
+  hardness: 0.9
+  mining time: 2.0
+Stone:
+  type: mineral
+  hardness: 0.4
+  mining time: 2.0
+
+# Smelted stuff
+Iron Plate:
+  type: smelted
+  ingredients:
+    - name: Iron Ore
+  time: 3.5
+Copper Plate:
+  type: smelted
+  ingredients:
+    - name: Copper Ore
+  time: 3.5
+Steel Plate:
+  type: smelted
+  ingredients:
+    - name: Iron Plate
+      qty: 5
+  time: 17.5
+Stone Brick:
+  type: smelted
+  ingredients:
+    - name: Stone
+      qty: 2
+  time: 5.0
+
+# Made in chemical plants:
+Plastic:
+  type: chemical
+  ingredients:
+    - name: Coal
+    - name: Gas
+      qty: 3
+  time: 1.0
+Sulfur:
+  type: chemical
+  ingredients:
+    - name: Water
+      qty: 2
+    - name: Gas
+      qty: 3
+  produced: 3
+  time: 1.0
+Sulfuric Acid:
+  type: chemical
+  ingredients:
+    - name: Iron Plate
+    - name: Sulfur
+      qty: 5
+    - name: Water
+      qty: 10
+  produced: 5
+  time: 1.0
+Lubricant:
+  type: chemical
+  ingredients:
+    - name: Heavy Oil
+  time: 1.0
+Battery:
+  type: chemical
+  ingredients:
+    - name: Iron Plate
+    - name: Copper Plate
+    - name: Sulfuric Acid
+      qty: 2
+  time: 5.0
+Flamethrower Ammo:
+  type: chemical
+  ingredients:
+    - name: Iron Plate
+      qty: 5
+    - name: Heavy Oil
+      qty: 2.5
+    - name: Light Oil
+      qty: 2.5
+  time: 3.0
+
+# Basic intermediate components
+Iron Gear Wheel:
+  ingredients:
+    - name: Iron Plate
+      qty: 2
+  time: 0.5
+Pipe:
+  ingredients:
+    - name: Iron Plate
+  time: 0.5
+
+# Circuitry
+Cable:
+  ingredients:
+    - name: Copper Plate
+  produced: 2
+  time: 0.5
+Circuit:
+  ingredients:
+    - name: Cable
+      qty: 3
+    - name: Iron Plate
+  time: 0.5
+Advanced Circuit:
+  ingredients:
+    - name: Circuit
+      qty: 2
+    - name: Plastic
+      qty: 2
+    - name: Cable
+      qty: 4
+  time: 8.0
+Processing Unit:
+  ingredients:
+    - name: Sulfuric Acid
+      qty: 0.5
+    - name: Circuit
+      qty: 20
+    - name: Advanced Circuit
+      qty: 2
+  time: 15.0
+
+# Speed Modules
+Speed Module 1:
+  ingredients:
+    - name: Circuit
+      qty: 5
+    - name: Advanced Circuit
+      qty: 5
+  time: 15.0
+Speed Module 2:
+  ingredients:
+    - name: Advanced Circuit
+      qty: 5
+    - name: Processing Unit
+      qty: 5
+    - name: Speed Module 1
+      qty: 5
+  time: 30.0
+Speed Module 3:
+  ingredients:
+    - name: Advanced Circuit
+      qty: 5
+    - name: Processing Unit
+      qty: 5
+    - name: Alien Artifact
+    - name: Speed Module 2
+      qty: 4
+  time: 60.0
+
+# Efficiency Modules
+Efficiency Module 1:
+  ingredients:
+    - name: Circuit
+      qty: 5
+    - name: Advanced Circuit
+      qty: 5
+  time: 15.0
+Efficiency Module 2:
+  ingredients:
+    - name: Advanced Circuit
+      qty: 5
+    - name: Processing Unit
+      qty: 5
+    - name: Efficiency Module 1
+      qty: 5
+  time: 30.0
+Efficiency Module 3:
+  ingredients:
+    - name: Advanced Circuit
+      qty: 5
+    - name: Processing Unit
+      qty: 5
+    - name: Alien Artifact
+    - name: Efficiency Module 2
+      qty: 5
+  time: 60.0
+
+# Productivity Modules
+Productivity Module 1:
+  ingredients:
+    - name: Circuit
+      qty: 5
+    - name: Advanced Circuit
+      qty: 5
+  time: 15.0
+Productivity Module 2:
+  ingredients:
+    - name: Advanced Circuit
+      qty: 5
+    - name: Processing Unit
+      qty: 5
+    - name: Productivity Module 1
+      qty: 5
+  time: 30.0
+Productivity Module 3:
+  ingredients:
+    - name: Advanced Circuit
+      qty: 5
+    - name: Processing Unit
+      qty: 5
+    - name: Alien Artifact
+    - name: Productivity Module 2
+      qty: 5
+  time: 60.0
+
+# Furnaces
+Stone Furnace:
+  ingredients:
+    - name: Stone
+      qty: 5
+  time: 0.5
+  machine:
+    type: furnace
+    speed: 1.0
+Steel Furnace:
+  ingredients:
+    - name: Steel Plate
+      qty: 8
+    - name: Stone Brick
+      qty: 10
+  time: 3.0
+  machine:
+    type: furnace
+    speed: 2.0
+Electric Furnace:
+  ingredients:
+    - name: Steel Plate
+      qty: 15
+    - name: Stone Brick
+      qty: 10
+    - name: Advanced Circuit
+      qty: 5
+  time: 5.0
+  machine:
+    type: furnace
+    speed: 2.0
+
+# Chemical facilities
+Chemical Plant:
+  ingredients:
+    - name: Steel Plate
+      qty: 5
+    - name: Iron Gear Wheel
+      qty: 5
+    - name: Circuit
+      qty: 5
+    - name: Pipe
+      qty: 5
+  time: 10
+  machine:
+    type: chemestry
+    speed: 1.25
+
+# Mining Machines
+Burner Mining Drill:
+  ingredients:
+    - name: Stone Furnace
+    - name: Iron Plate
+      qty: 3
+    - name: Iron Gear Wheel
+      qty: 3
+  time: 2.0
+  machine:
+    type: mining
+    speed: 0.35
+    power: 2.5
+Electric Mining Drill:
+  ingredients:
+    - name: Iron Plate
+      qty: 10
+    - name: Iron Gear Wheel
+      qty: 5
+    - name: Circuit
+      qty: 3
+  time: 2
+  machine:
+    type: mining
+    speed: 0.5
+    power: 3.0
+
+# Assembling Machines
+Assembling Machine 1:
+  ingredients:
+    - name: Circuit
+      qty: 3
+    - name: Iron Gear Wheel
+      qty: 5
+    - name: Iron Plate
+      qty: 9
+  time: 0.5
+  machine:
+    type: assembly
+    speed: 0.5
+    inputs: 2
+Assembling Machine 2:
+  ingredients:
+    - name: Circuit
+      qty: 3
+    - name: Iron Gear Wheel
+      qty: 5
+    - name: Iron Plate
+      qty: 9
+    - name: Assembling Machine 1
+  time: 0.5
+  machine:
+    type: assembly
+    speed: 0.75
+    inputs: 4
+Assembling Machine 3:
+  ingredients:
+    - name: Assembling Machine 2
+      qty: 2
+    - name: Speed Module 1
+      qty: 4
+  time: 0.5
+  machine:
+    type: assembly
+    speed: 1.25
+    inputs: 6
