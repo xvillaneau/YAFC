@@ -1,4 +1,8 @@
 
+from .item import Mineral
+from math import ceil
+
+
 class Machine:
     """
     Class for machines that can be used for
@@ -19,6 +23,9 @@ class Machine:
     def serialize(cls, item, serial_data):
         raise NotImplementedError
 
+    def how_many(self, item, qty):
+        raise NotImplementedError
+
 
 class Miner(Machine):
     """
@@ -36,51 +43,69 @@ class Miner(Machine):
     def serialize(cls, item, serial_data):
         return cls(item, serial_data['speed'], serial_data['power'])
 
+    def how_many(self, item, qty):
+        """
+        :param item: Mineral to be mined
+        :type item: Mineral
+        :param qty: Flow in units/minute to be mined
+        :type qty: float
+        :return: How many miners are necessary
+        :rtype: int
+        """
+        if item.machine_cls != self.name:
+            raise ValueError("Item and machine types do not match!")
+        if item.hardness >= self.power:
+            raise ValueError("{} is not powerful enough to mine {}"
+                             .format(self.item.name, item.name))
 
-class Assembler(Machine):
+        unit_rate = (self.power - item.hardness) * self.speed * 60 / item.time
+        return ceil(qty / unit_rate)
+
+
+class BaseManufacture(Machine):
+
+    name = None
+
+    def __init__(self, item, speed):
+        super().__init__(item)
+        self.speed = speed
+
+    @classmethod
+    def serialize(cls, item, serial_data):
+        return cls(item, serial_data['speed'])
+
+    def how_many(self, item, qty):
+        """
+        :param item: Mineral to be mined
+        :type item: Mineral
+        :param qty: Flow in units/minute to be mined
+        :type qty: float
+        :return: How many miners are necessary
+        :rtype: int
+        """
+        if item.machine_cls != self.name:
+            raise ValueError("Item and machine types do not match!")
+
+        unit_rate = self.speed * 60 / item.time
+        return ceil(qty / unit_rate)
+
+
+class Assembler(BaseManufacture):
     """
     Assembling machines.
     """
-
     name = "assembling"
 
-    def __init__(self, item, speed, inputs):
-        super().__init__(item)
-        self.speed = speed
-        self.inputs = inputs
 
-    @classmethod
-    def serialize(cls, item, serial_data):
-        return cls(item, serial_data['speed'], serial_data['inputs'])
-
-
-class Furnace(Machine):
+class Furnace(BaseManufacture):
     """
     Furnaces.
     """
-
     name = "smelting"
 
-    def __init__(self, item, speed):
-        super().__init__(item)
-        self.speed = speed
 
-    @classmethod
-    def serialize(cls, item, serial_data):
-        return cls(item, serial_data['speed'])
-
-
-class ChemicalPlant(Machine):
+class ChemicalPlant(BaseManufacture):
     """
     Chemical Plants.
     """
-
     name = "chemistry"
-
-    def __init__(self, item, speed):
-        super().__init__(item)
-        self.speed = speed
-
-    @classmethod
-    def serialize(cls, item, serial_data):
-        return cls(item, serial_data['speed'])

@@ -7,6 +7,9 @@ class Item:
     Any enumerable object that can exist. Basic items have no recipe.
     e.g.: Water, Oil, Alien Artifacts
     """
+
+    machine_cls = None
+
     def __init__(self, name):
         """
         Constructor for basic items
@@ -25,6 +28,8 @@ class Mineral(Item):
     Items that are mined.
     e.g.: Iron Ore, Coal
     """
+
+    machine_cls = "mining"
 
     def __init__(self, name, time, hardness):
         """
@@ -64,7 +69,7 @@ class Manufactured(Item):
         :type time: Real
 
         :param machine_cls: Class of Machine that this recipe requires
-        :type machine_cls: class
+        :type machine_cls: str
 
         :param produced: Amount of the item produced by the recipe
         :type produced: Real

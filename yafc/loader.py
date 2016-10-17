@@ -13,8 +13,9 @@ def _machine_cls():
     """
     return dict(
         (cls.name, cls) for _, cls in machine.__dict__.items()
-        if cls is not machine.Machine if isclass(cls)
+        if isclass(cls)
         if issubclass(cls, machine.Machine)
+        if cls.name is not None
     )
 
 MACHINE_CLS = _machine_cls()
@@ -59,8 +60,7 @@ class GameSet:
                 ingredients[self.items[i_name]] = i_qty
 
             obj = Manufactured(
-                name, ingredients, props['time'],
-                MACHINE_CLS[item_type],
+                name, ingredients, props['time'], item_type,
                 props.get('produced', 1)
             )
 
