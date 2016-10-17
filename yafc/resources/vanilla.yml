@@ -2,72 +2,72 @@
 
 # Base components, that can't be made or mined
 Water:
-  type: basic
+  type: null
 Alien Artifact:
-  type: basic
+  type: null
 Gas:
-  type: basic
+  type: null
 Light Oil:
-  type: basic
+  type: null
 Heavy Oil:
-  type: basic
+  type: null
 
 # Products of mining
 Iron Ore:
-  type: mineral
+  type: mining
   hardness: 0.9
   mining time: 2.0
 
 Copper Ore:
-  type: mineral
+  type: mining
   hardness: 0.9
   mining time: 2.0
 
 Coal:
-  type: mineral
+  type: mining
   hardness: 0.9
   mining time: 2.0
 
 Stone:
-  type: mineral
+  type: mining
   hardness: 0.4
   mining time: 2.0
 
 # Smelted stuff
 Iron Plate:
-  type: smelted
+  type: smelting
   ingredients:
     Iron Ore: 1
   time: 3.5
 
 Copper Plate:
-  type: smelted
+  type: smelting
   ingredients:
     Copper Ore: 1
   time: 3.5
 
 Steel Plate:
-  type: smelted
+  type: smelting
   ingredients:
     Iron Plate: 5
   time: 17.5
 
 Stone Brick:
-  type: smelted
+  type: smelting
   ingredients:
     Stone: 2
   time: 5.0
 
 # Made in chemical plants:
 Plastic:
-  type: chemical
+  type: chemistry
   ingredients:
     Coal: 1
     Gas:  3
   time: 1.0
 
 Sulfur:
-  type: chemical
+  type: chemistry
   ingredients:
     Water:  2
     Gas:    3
@@ -75,7 +75,7 @@ Sulfur:
   time: 1.0
 
 Sulfuric Acid:
-  type: chemical
+  type: chemistry
   ingredients:
     Iron Plate: 1
     Sulfur:   5
@@ -84,13 +84,13 @@ Sulfuric Acid:
   time: 1.0
 
 Lubricant:
-  type: chemical
+  type: chemistry
   ingredients:
     Heavy Oil: 1
   time: 1.0
 
 Battery:
-  type: chemical
+  type: chemistry
   ingredients:
     Iron Plate:     1
     Copper Plate:   1
@@ -98,7 +98,7 @@ Battery:
   time: 5.0
 
 Flamethrower Ammo:
-  type: chemical
+  type: chemistry
   ingredients:
     Iron Plate: 5
     Heavy Oil:  2.5
@@ -311,7 +311,7 @@ Stone Furnace:
     Stone: 5
   time: 0.5
   machine:
-    type: furnace
+    type: smelting
     speed: 1.0
 
 Steel Furnace:
@@ -320,7 +320,7 @@ Steel Furnace:
     Stone Brick: 10
   time: 3.0
   machine:
-    type: furnace
+    type: smelting
     speed: 2.0
 
 Electric Furnace:
@@ -330,7 +330,7 @@ Electric Furnace:
     Advanced Circuit:  5
   time: 5.0
   machine:
-    type: furnace
+    type: smelting
     speed: 2.0
 
 # Chemical facilities
@@ -376,7 +376,7 @@ Assembling Machine 1:
     Iron Plate:      9
   time: 0.5
   machine:
-    type: assembly
+    type: assembling
     speed: 0.5
     inputs: 2
 
@@ -388,7 +388,7 @@ Assembling Machine 2:
     Assembling Machine 1: 1
   time: 0.5
   machine:
-    type: assembly
+    type: assembling
     speed: 0.75
     inputs: 4
 
@@ -398,6 +398,6 @@ Assembling Machine 3:
     Speed Module 1:       4
   time: 0.5
   machine:
-    type: assembly
+    type: assembling
     speed: 1.25
     inputs: 6

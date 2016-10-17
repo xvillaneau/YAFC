@@ -1,20 +1,23 @@
 
 import yaml
+from inspect import isclass
+
+from yafc import machine
 from .item import Item, Mineral, Manufactured
-from .machine import Assembler, ChemicalPlant, Furnace, Miner
 
-ITEM_MACHINE_CLS = {
-    "manufactured": Assembler,
-    "chemical": ChemicalPlant,
-    "smelted": Furnace
-}
 
-MACHINE_CLS = {
-    "assembly": Assembler,
-    "chemistry": ChemicalPlant,
-    "furnace": Furnace,
-    "mining": Miner
-}
+def _machine_cls():
+    """
+    Get the Machine subclasses in yafc.machine and map them by their name
+    :rtype: dict[str, machine.Machine]
+    """
+    return dict(
+        (cls.name, cls) for _, cls in machine.__dict__.items()
+        if cls is not machine.Machine if isclass(cls)
+        if issubclass(cls, machine.Machine)
+    )
+
+MACHINE_CLS = _machine_cls()
 
 
 class GameSet:
@@ -37,29 +40,27 @@ class GameSet:
 
     def _load_item(self, name, gs_dict):
         props = gs_dict.pop(name)
-        item_type = props.get('type', 'manufactured')
+        item_type = props.get('type', 'assembling')
 
-        if item_type == 'basic':
+        if item_type is None:
             obj = Item(name)
 
-        elif item_type == 'mineral':
+        elif item_type == 'mining':
             obj = Mineral(name, props['mining time'], props['hardness'])
 
         else:
             # Otherwise: Manufactured item
-
             ingredients = {}
             for i_name, i_qty in props['ingredients'].items():
 
                 if i_name not in self.items:
                     # Recursively load ingredient if not loaded yet
                     self._load_item(i_name, gs_dict)
-
                 ingredients[self.items[i_name]] = i_qty
 
             obj = Manufactured(
                 name, ingredients, props['time'],
-                ITEM_MACHINE_CLS[item_type],
+                MACHINE_CLS[item_type],
                 props.get('produced', 1)
             )
 
@@ -69,19 +70,6 @@ class GameSet:
         self.items[name] = obj
 
     def _load_machine(self, item, props):
-        speed = props['speed']
         machine_type = props['type']
-
-        if machine_type == 'assembly':
-            obj = Assembler(item, speed, props['inputs'])
-        elif machine_type == 'mining':
-            obj = Miner(item, speed, props['power'])
-        elif machine_type == 'chemistry':
-            obj = ChemicalPlant(item, speed)
-        elif machine_type == 'furnace':
-            obj = Furnace(item, speed)
-        else:
-            raise ValueError(
-                "Unrecognized machine type {}".format(machine_type))
-
+        obj = MACHINE_CLS[machine_type].serialize(item, props)
         self.machines[item.name] = obj

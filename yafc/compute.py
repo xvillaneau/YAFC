@@ -36,3 +36,15 @@ def compute_flows(inputs):
     prod_plan.update(head)
 
     return dict(prod_plan)
+
+
+def compute_machines(flows, machines):
+    """
+    From a map of manufacturing flows, compute the number of
+    machines required to handle that flow.
+
+    :param flows:
+    :param machines:
+    :return:
+    """
+    pass
