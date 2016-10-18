@@ -1,5 +1,6 @@
 
 import yaml
+from yaml.parser import ParserError
 from inspect import isclass
 
 from yafc import machine
@@ -33,7 +34,13 @@ class GameSet:
         self.items = {}
         """:type : dict[str, Item]"""
 
-        game_set_dict = yaml.load(yaml_stream)
+        try:
+            game_set_dict = yaml.load(yaml_stream)
+        except ParserError:
+            raise ValueError("Failed to read YAMl input")
+
+        if not isinstance(game_set_dict, dict):
+            raise ValueError("Incorrect input, expecting map of items")
 
         while game_set_dict:
             item_name = next(k for k in game_set_dict.keys())

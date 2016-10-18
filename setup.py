@@ -9,5 +9,7 @@ setuptools.setup(
     author_email="xvillaneau@gmail.com",
     license="MIT",
     packages=["yafc"],
-    install_requires=['pyYAML']
+    install_requires=['pyYAML'],
+    test_suite='nose.collector',
+    tests_require=['nose'],
 )
