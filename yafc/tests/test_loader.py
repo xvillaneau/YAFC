@@ -2,7 +2,7 @@
 import unittest
 from yafc.loader import GameSet
 
-from yafc.item import Mineral, Manufactured, Item
+from yafc.item import Mineral, Manufactured
 from yafc.machine import Assembler
 
 

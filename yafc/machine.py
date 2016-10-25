@@ -1,5 +1,5 @@
 
-from .item import Mineral
+from .item import Manufactured, Mineral
 from math import ceil
 
 
@@ -17,14 +17,40 @@ class Machine:
         self.item = item
 
     def __repr__(self):
-        return self.item.name
+        return self.item.name  # pragma: no cover
 
     @classmethod
     def serialize(cls, item, serial_data):
         raise NotImplementedError
 
-    def how_many(self, item, qty):
+    def test_item(self, item):
+        """
+        Test if an item is valid for this machine
+
+        :param item: Item to test
+        :type item: Item
+        """
+        if item.machine_cls != self.name:
+            raise ValueError("Item and machine types do not match!")
+
+    def max_production(self, item):
         raise NotImplementedError
+
+    def how_many(self, item, qty):
+        """
+        Compute how many mining machines are required to achieve a
+        given production target.
+
+        :param item: Item to be produced
+        :type item: Item
+
+        :param qty: Flow in units/minute to be produced
+        :type qty: float
+
+        :return: How many machines are necessary
+        :rtype: int
+        """
+        return ceil(qty / self.max_production(item))
 
 
 class Miner(Machine):
@@ -43,23 +69,23 @@ class Miner(Machine):
     def serialize(cls, item, serial_data):
         return cls(item, serial_data['speed'], serial_data['power'])
 
-    def how_many(self, item, qty):
+    def max_production(self, item):
         """
+        Compute the maximum rate at which the given item can be mined
+
         :param item: Mineral to be mined
         :type item: Mineral
-        :param qty: Flow in units/minute to be mined
-        :type qty: float
-        :return: How many miners are necessary
-        :rtype: int
+
+        :return: Maximum production rate (items/minute)
+        :rtype: float
         """
-        if item.machine_cls != self.name:
-            raise ValueError("Item and machine types do not match!")
+
+        self.test_item(item)
         if item.hardness >= self.power:
             raise ValueError("{} is not powerful enough to mine {}"
                              .format(self.item.name, item.name))
 
-        unit_rate = (self.power - item.hardness) * self.speed * 60 / item.time
-        return ceil(qty / unit_rate)
+        return (self.power - item.hardness) * self.speed * 60 / item.time
 
 
 class BaseManufacture(Machine):
@@ -74,20 +100,18 @@ class BaseManufacture(Machine):
     def serialize(cls, item, serial_data):
         return cls(item, serial_data['speed'])
 
-    def how_many(self, item, qty):
+    def max_production(self, item):
         """
-        :param item: Mineral to be mined
-        :type item: Mineral
-        :param qty: Flow in units/minute to be mined
-        :type qty: float
-        :return: How many miners are necessary
-        :rtype: int
-        """
-        if item.machine_cls != self.name:
-            raise ValueError("Item and machine types do not match!")
+        Compute the maximum rate at which the given item can be made
 
-        unit_rate = self.speed * 60 / item.time
-        return ceil(qty / unit_rate)
+        :param item: Item to be produced
+        :type item: Manufactured
+
+        :return: Maximum production rate (items/minute)
+        :rtype: float
+        """
+        self.test_item(item)
+        return self.speed * item.produced * 60 / item.time
 
 
 class Assembler(BaseManufacture):
