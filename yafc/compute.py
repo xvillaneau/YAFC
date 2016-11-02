@@ -1,6 +1,5 @@
 
 from collections import defaultdict
-from numbers import Real
 from .item import Item, Manufactured
 from .machine import Machine
 
@@ -11,10 +10,10 @@ def compute_flows(inputs):
     to get from raw ingredients to
 
     :param inputs: What items to produce
-    :type inputs: dict[Item, Real]
+    :type inputs: dict[Item, float]
 
     :return: Complete list of intermediate quantities
-    :rtype: dict[Item, Real]
+    :rtype: dict[Item, float]
     """
 
     head = defaultdict(float)
@@ -47,7 +46,7 @@ def compute_machines(flows, machines):
     *Note:* Flows are assumed to be in units/minute
 
     :param flows: List of manufacturing operations
-    :rtype flows: dict[Item, Real]
+    :type flows: dict[Item, float]
 
     :param machines: List of available machines
     :type machines: dict[str, Machine]
@@ -56,6 +55,11 @@ def compute_machines(flows, machines):
     """
 
     def compute_one(item, qty):
+        """
+        :type item: Item
+        :type qty: float
+        :rtype: (Machine, float)
+        """
         if item.machine_cls is None:
             return None, 0
         machine = machines[item.machine_cls]

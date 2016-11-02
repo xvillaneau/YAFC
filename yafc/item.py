@@ -1,7 +1,4 @@
 
-from numbers import Real
-
-
 class Item:
     """
     Any enumerable object that can exist. Basic items have no recipe.
@@ -9,6 +6,7 @@ class Item:
     """
 
     machine_cls = None
+    """:type: str"""
 
     def __init__(self, name):
         """
@@ -39,10 +37,10 @@ class Mineral(Item):
         :type name: str
 
         :param time: Mining time for this mineral
-        :type time: Real
+        :type time: float
 
         :param hardness: Mining hardness for this mineral
-        :type hardness: Real
+        :type hardness: float
         """
         super().__init__(name)
         self.time = time
@@ -63,16 +61,16 @@ class Manufactured(Item):
         :type name: str
 
         :param ingredients: Map from required ingredients to their amount
-        :type ingredients: dict[Item, Real]
+        :type ingredients: dict[Item, float]
 
         :param time: Base time for completion of this recipe
-        :type time: Real
+        :type time: float
 
         :param machine_cls: Class of Machine that this recipe requires
         :type machine_cls: str
 
         :param produced: Amount of the item produced by the recipe
-        :type produced: Real
+        :type produced: float
         """
         super().__init__(name)
         self.ingredients = ingredients
