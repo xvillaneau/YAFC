@@ -133,3 +133,10 @@ class ChemicalPlant(BaseManufacture):
     Chemical Plants.
     """
     name = "chemistry"
+
+
+class RocketSile(BaseManufacture):
+    """
+    The rocket Silo
+    """
+    name = "rocket"

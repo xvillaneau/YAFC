@@ -11,6 +11,8 @@ Light Oil:
   type: null
 Heavy Oil:
   type: null
+Solid Fuel:
+  type: null
 
 # Products of mining
 Iron Ore:
@@ -57,6 +59,14 @@ Stone Brick:
   ingredients:
     Stone: 2
   time: 5.0
+
+Concrete:
+  ingredients:
+    Stone Brick: 5
+    Iron Ore:    1
+    Water:      10
+  produced: 10
+  time: 10.0
 
 # Made in chemical plants:
 Plastic:
@@ -213,6 +223,35 @@ Splitter:
     Circuit:        5
   time: 1.0
 
+# Engines and drones
+Engine Unit:
+  ingredients:
+    Steel Plate:      1
+    Iron Gear Wheel:  1
+    Pipe:             2
+  time: 20.0
+
+Electric Engine Unit:
+  ingredients:
+    Engine Unit:  1
+    Circuit:      2
+    Lubricant:    2
+  time: 20.0
+
+# Power supply
+Accumulator:
+  ingredients:
+    Iron Plate: 2
+    Battery:    5
+  time: 10.0
+
+Solar Panel:
+  ingredients:
+    Copper Plate:   5
+    Steel Plate:    5
+    Circuit:       15
+  time: 10.0
+
 # Science Packs
 Science Pack 1:
   ingredients:
@@ -272,7 +311,7 @@ Efficiency Module 2:
   ingredients:
     Advanced Circuit:     5
     Processing Unit:      5
-    Efficiency Module 1:  5
+    Efficiency Module 1:  4
   time: 30.0
 
 Efficiency Module 3:
@@ -304,6 +343,52 @@ Productivity Module 3:
     Alien Artifact:         1
     Productivity Module 2:  5
   time: 60.0
+
+# Military
+Radar:
+  ingredients:
+    Circuit: 5
+    Iron Plate: 10
+    Iron Gear Wheel: 5
+  time: 0.5
+
+# Rocket parts
+
+Rocket Fuel:
+  ingredients:
+    Solid Fuel: 10
+  time: 30.0
+
+Rocket Control Unit:
+  ingredients:
+    Processing Unit:  1
+    Speed Module 1:   1
+  time: 30.0
+
+Low Density Structure:
+  ingredients:
+    Steel Plate:   20
+    Copper Plate:   5
+    Plastic:        5
+  time: 30.0
+
+Rocket Part:
+  ingredients:
+    Rocket Control Unit:    10
+    Rocket Fuel:            10
+    Low Density Structure:  10
+  time: 3
+  type: rocket
+
+Satellite:
+  ingredients:
+    Low Density Structure:  100
+    Solar Panel:            100
+    Accumulator:            100
+    Radar:                    5
+    Processing Unit:        100
+    Rocket Fuel:             50
+  time: 3.0
 
 # Furnaces
 Stone Furnace:
@@ -390,6 +475,7 @@ Assembling Machine 2:
   machine:
     type: assembling
     speed: 0.75
+    speed: 0.75
     inputs: 4
 
 Assembling Machine 3:
@@ -401,3 +487,15 @@ Assembling Machine 3:
     type: assembling
     speed: 1.25
     inputs: 6
+
+Rocket Silo:
+  ingredients:
+    Steel Plate:          1000
+    Concrete:             1000
+    Pipe:                  100
+    Processing Unit:       200
+    Electric Engine Unit:  200
+  time: 30.0
+  machine:
+    type: rocket
+    speed: 1.0
