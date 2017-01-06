@@ -289,7 +289,7 @@ Speed Module 2:
   ingredients:
     Advanced Circuit: 5
     Processing Unit:  5
-    Speed Module 1:   5
+    Speed Module 1:   4
   time: 30.0
 
 Speed Module 3:
@@ -333,7 +333,7 @@ Productivity Module 2:
   ingredients:
     Advanced Circuit:       5
     Processing Unit:        5
-    Productivity Module 1:  5
+    Productivity Module 1:  4
   time: 30.0
 
 Productivity Module 3:
