@@ -10,8 +10,8 @@ setuptools.setup(
     license="MIT",
     packages=["yafc"],
     install_requires=['pyYAML'],
-    test_suite='nose.collector',
-    tests_require=['nose'],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
     entry_points={
         'console_scripts': ['yafc = yafc.__main__:main']
     },

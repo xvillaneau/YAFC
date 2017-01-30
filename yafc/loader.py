@@ -1,7 +1,8 @@
+from inspect import isclass
 
+from pkg_resources import resource_stream
 import yaml
 from yaml.parser import ParserError
-from inspect import isclass
 
 from yafc import machine
 from .item import Item, Mineral, Manufactured
@@ -45,6 +46,10 @@ class GameSet:
         while game_set_dict:
             item_name = next(k for k in game_set_dict.keys())
             self._load_item(item_name, game_set_dict)
+
+    @staticmethod
+    def vanilla():
+        return GameSet(resource_stream("yafc.resources", "vanilla.yml"))
 
     def _load_item(self, name, gs_dict):
         props = gs_dict.pop(name)
