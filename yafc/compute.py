@@ -4,7 +4,7 @@ from .item import Item, Manufactured
 from .machine import Machine
 
 
-def compute_flows(inputs):
+def compute_flows(inputs, limits=set([])):
     """
     Compute the entire set of operations and quantities/flows
     to get from raw ingredients to
@@ -21,10 +21,12 @@ def compute_flows(inputs):
 
     prod_plan = defaultdict(float)
 
-    while any(isinstance(i, Manufactured) for i in head):
+    while any(isinstance(i, Manufactured) for i in head
+              if i.name not in limits):
 
         # Remove the next manufactured item from the
-        item = next(i for i in head if isinstance(i, Manufactured))
+        item = next(i for i in head if isinstance(i, Manufactured)
+                    if i.name not in limits)
         """:type: Manufactured"""
         qty = head.pop(item)
 
