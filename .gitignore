@@ -1,3 +1,8 @@
 .virtualenv
 .idea
 /.coverage
+.cache
+.eggs
+*.egg-info
+*__pycache__
+*.pyc
