@@ -11,8 +11,6 @@ Light Oil:
   type: null
 Heavy Oil:
   type: null
-Solid Fuel:
-  type: null
 
 # Products of mining
 Iron Ore:
@@ -41,24 +39,28 @@ Iron Plate:
   ingredients:
     Iron Ore: 1
   time: 3.5
+  intermediate: true
 
 Copper Plate:
   type: smelting
   ingredients:
     Copper Ore: 1
   time: 3.5
+  intermediate: true
 
 Steel Plate:
   type: smelting
   ingredients:
     Iron Plate: 5
   time: 17.5
+  intermediate: true
 
 Stone Brick:
   type: smelting
   ingredients:
     Stone: 2
   time: 5.0
+  intermediate: true
 
 Concrete:
   ingredients:
@@ -75,6 +77,7 @@ Plastic:
     Coal: 1
     Gas:  3
   time: 1.0
+  intermediate: true
 
 Sulfur:
   type: chemistry
@@ -83,6 +86,7 @@ Sulfur:
     Gas:    3
   produced: 3
   time: 1.0
+  intermediate: true
 
 Sulfuric Acid:
   type: chemistry
@@ -92,12 +96,21 @@ Sulfuric Acid:
     Water:   10
   produced: 5
   time: 1.0
+  intermediate: true
 
 Lubricant:
   type: chemistry
   ingredients:
     Heavy Oil: 1
   time: 1.0
+  intermediate: true
+
+Solid Fuel:
+  type: chemistry
+  ingredients:
+    Light Oil: 1
+  time: 3.0
+  intermediate: true
 
 Battery:
   type: chemistry
@@ -106,6 +119,7 @@ Battery:
     Copper Plate:   1
     Sulfuric Acid:  2
   time: 5.0
+  intermediate: true
 
 Flamethrower Ammo:
   type: chemistry
@@ -120,6 +134,7 @@ Iron Gear Wheel:
   ingredients:
     Iron Plate: 2
   time: 0.5
+  intermediate: true
 
 Pipe:
   ingredients:
@@ -132,12 +147,14 @@ Cable:
     Copper Plate: 1
   produced: 2
   time: 0.5
+  intermediate: true
 
 Circuit:
   ingredients:
     Cable:      3
     Iron Plate: 1
   time: 0.5
+  intermediate: true
 
 Advanced Circuit:
   ingredients:
@@ -145,6 +162,7 @@ Advanced Circuit:
     Plastic:  2
     Cable:    4
   time: 8.0
+  intermediate: true
 
 Processing Unit:
   ingredients:
@@ -152,6 +170,7 @@ Processing Unit:
     Circuit:          20
     Advanced Circuit:  2
   time: 15.0
+  intermediate: true
 
 # Inserters
 Burner Inserter:
@@ -230,6 +249,7 @@ Engine Unit:
     Iron Gear Wheel:  1
     Pipe:             2
   time: 20.0
+  intermediate: true
 
 Electric Engine Unit:
   ingredients:
@@ -237,6 +257,16 @@ Electric Engine Unit:
     Circuit:      2
     Lubricant:    2
   time: 20.0
+  intermediate: true
+
+Flying Robot Frame:
+  ingredients:
+    Electric Engine Unit: 1
+    Battery:              2
+    Steel Plate:          1
+    Circuit:              3
+  time: 20.0
+  intermediate: true
 
 # Power supply
 Accumulator:
@@ -258,12 +288,14 @@ Science Pack 1:
     Copper Plate:     1
     Iron Gear Wheel:  1
   time: 5.0
+  intermediate: true
 
 Science Pack 2:
   ingredients:
     Inserter:       1
     Transport Belt: 1
   time: 6.0
+  intermediate: true
 
 Science Pack 3:
   ingredients:
@@ -272,11 +304,13 @@ Science Pack 3:
     Filter Inserter:  1
     Steel Plate:      1
   time: 12.0
+  intermediate: true
 
 Alien Science Pack:
   ingredients:
     Alien Artifact: 1
   time: 12.0
+  intermediate: true
 
 # Speed Modules
 Speed Module 1:
@@ -358,12 +392,14 @@ Rocket Fuel:
   ingredients:
     Solid Fuel: 10
   time: 30.0
+  intermediate: true
 
 Rocket Control Unit:
   ingredients:
     Processing Unit:  1
     Speed Module 1:   1
   time: 30.0
+  intermediate: true
 
 Low Density Structure:
   ingredients:
@@ -371,6 +407,7 @@ Low Density Structure:
     Copper Plate:   5
     Plastic:        5
   time: 30.0
+  intermediate: true
 
 Rocket Part:
   ingredients:
@@ -378,6 +415,7 @@ Rocket Part:
     Rocket Fuel:            10
     Low Density Structure:  10
   time: 3
+  intermediate: true
   type: rocket
 
 Satellite:
@@ -417,6 +455,7 @@ Electric Furnace:
   machine:
     type: smelting
     speed: 2.0
+    slots: 2
 
 # Chemical facilities
 Chemical Plant:
@@ -429,6 +468,7 @@ Chemical Plant:
   machine:
     type: chemistry
     speed: 1.25
+    slots: 2
 
 # Mining Machines
 Burner Mining Drill:
@@ -452,6 +492,7 @@ Electric Mining Drill:
     type: mining
     speed: 0.5
     power: 3.0
+    slots: 3
 
 # Assembling Machines
 Assembling Machine 1:
@@ -477,6 +518,7 @@ Assembling Machine 2:
     speed: 0.75
     speed: 0.75
     inputs: 4
+    slots: 2
 
 Assembling Machine 3:
   ingredients:
@@ -487,6 +529,7 @@ Assembling Machine 3:
     type: assembling
     speed: 1.25
     inputs: 6
+    slots: 4
 
 Rocket Silo:
   ingredients:
@@ -499,3 +542,4 @@ Rocket Silo:
   machine:
     type: rocket
     speed: 1.0
+    slots: 4
