@@ -1,7 +1,9 @@
-# Vanilla Factorio Items as of 0.15
+# Vanilla Factorio Items as of 0.14
 
 # Base components, that can't be made or mined
 Water:
+  type: null
+Alien Artifact:
   type: null
 Gas:
   type: null
@@ -73,15 +75,15 @@ Plastic:
   type: chemistry
   ingredients:
     Coal: 1
-    Gas:  20
+    Gas:  3
   time: 1.0
   intermediate: true
 
 Sulfur:
   type: chemistry
   ingredients:
-    Water:  20
-    Gas:    30
+    Water:  2
+    Gas:    3
   produced: 3
   time: 1.0
   intermediate: true
@@ -91,23 +93,22 @@ Sulfuric Acid:
   ingredients:
     Iron Plate: 1
     Sulfur:   5
-    Water:   100
-  produced: 50
+    Water:   10
+  produced: 5
   time: 1.0
   intermediate: true
 
 Lubricant:
   type: chemistry
   ingredients:
-    Heavy Oil: 10
-  produced: 10
+    Heavy Oil: 1
   time: 1.0
   intermediate: true
 
 Solid Fuel:
   type: chemistry
   ingredients:
-    Light Oil: 10
+    Light Oil: 1
   time: 3.0
   intermediate: true
 
@@ -116,7 +117,7 @@ Battery:
   ingredients:
     Iron Plate:     1
     Copper Plate:   1
-    Sulfuric Acid:  20
+    Sulfuric Acid:  2
   time: 5.0
   intermediate: true
 
@@ -124,8 +125,8 @@ Flamethrower Ammo:
   type: chemistry
   ingredients:
     Iron Plate: 5
-    Heavy Oil:  25
-    Light Oil:  25
+    Heavy Oil:  2.5
+    Light Oil:  2.5
   time: 3.0
 
 # Basic intermediate components
@@ -141,7 +142,7 @@ Pipe:
   time: 0.5
 
 # Circuitry
-Copper Cable:
+Cable:
   ingredients:
     Copper Plate: 1
   produced: 2
@@ -150,7 +151,7 @@ Copper Cable:
 
 Circuit:
   ingredients:
-    Copper Cable:      3
+    Cable:      3
     Iron Plate: 1
   time: 0.5
   intermediate: true
@@ -159,8 +160,8 @@ Advanced Circuit:
   ingredients:
     Circuit:  2
     Plastic:  2
-    Copper Cable:    4
-  time: 6.0
+    Cable:    4
+  time: 8.0
   intermediate: true
 
 Processing Unit:
@@ -168,7 +169,7 @@ Processing Unit:
     Sulfuric Acid:     0.5
     Circuit:          20
     Advanced Circuit:  2
-  time: 10.0
+  time: 15.0
   intermediate: true
 
 # Inserters
@@ -247,15 +248,15 @@ Engine Unit:
     Steel Plate:      1
     Iron Gear Wheel:  1
     Pipe:             2
-  time: 10.0
+  time: 20.0
   intermediate: true
 
 Electric Engine Unit:
   ingredients:
     Engine Unit:  1
     Circuit:      2
-    Lubricant:    15
-  time: 10.0
+    Lubricant:    2
+  time: 20.0
   intermediate: true
 
 Flying Robot Frame:
@@ -281,6 +282,36 @@ Solar Panel:
     Circuit:       15
   time: 10.0
 
+# Science Packs
+Science Pack 1:
+  ingredients:
+    Copper Plate:     1
+    Iron Gear Wheel:  1
+  time: 5.0
+  intermediate: true
+
+Science Pack 2:
+  ingredients:
+    Inserter:       1
+    Transport Belt: 1
+  time: 6.0
+  intermediate: true
+
+Science Pack 3:
+  ingredients:
+    Battery:          1
+    Advanced Circuit: 1
+    Filter Inserter:  1
+    Steel Plate:      1
+  time: 12.0
+  intermediate: true
+
+Alien Science Pack:
+  ingredients:
+    Alien Artifact: 1
+  time: 12.0
+  intermediate: true
+
 # Speed Modules
 Speed Module 1:
   ingredients:
@@ -299,6 +330,7 @@ Speed Module 3:
   ingredients:
     Advanced Circuit: 5
     Processing Unit:  5
+    Alien Artifact:   1
     Speed Module 2:   4
   time: 60.0
 
@@ -320,6 +352,7 @@ Efficiency Module 3:
   ingredients:
     Advanced Circuit:     5
     Processing Unit:      5
+    Alien Artifact:       1
     Efficiency Module 2:  5
   time: 60.0
 
@@ -341,6 +374,7 @@ Productivity Module 3:
   ingredients:
     Advanced Circuit:       5
     Processing Unit:        5
+    Alien Artifact:         1
     Productivity Module 2:  5
   time: 60.0
 
@@ -351,31 +385,6 @@ Radar:
     Iron Plate: 10
     Iron Gear Wheel: 5
   time: 0.5
-
-Firearm Magazine:
-  ingredients:
-    Iron Plate: 4
-  time: 1.0
-
-Piercing Rounds Magazine:
-  ingredients:
-    Firearm Magazine: 1
-    Steel Plate:      1
-    Copper Plate:     5
-  time: 3.0
-
-Grenade:
-  ingredients:
-    Iron Plate: 5
-    Coal:      10
-  time: 8.0
-
-Gun Turret:
-  ingredients:
-    Iron Gear Wheel: 10
-    Copper Plate:    10
-    Iron Plate:      20
-  time: 8.0
 
 # Rocket parts
 
@@ -430,7 +439,7 @@ Stone Furnace:
 
 Steel Furnace:
   ingredients:
-    Steel Plate:  6
+    Steel Plate:  8
     Stone Brick: 10
   time: 3.0
   machine:
@@ -439,7 +448,7 @@ Steel Furnace:
 
 Electric Furnace:
   ingredients:
-    Steel Plate:      10
+    Steel Plate:      15
     Stone Brick:      10
     Advanced Circuit:  5
   time: 5.0
@@ -484,14 +493,6 @@ Electric Mining Drill:
     speed: 0.5
     power: 3.0
     slots: 3
-
-Pumpjack:
-  ingredients:
-    Steel Plate: 5
-    Iron Gear Wheel: 10
-    Circuit: 5
-    Pipe: 10
-  time: 10.0
 
 # Assembling Machines
 Assembling Machine 1:
@@ -542,54 +543,3 @@ Rocket Silo:
     type: rocket
     speed: 1.0
     slots: 4
-
-# Science Packs
-Science Pack 1:
-  ingredients:
-    Copper Plate:     1
-    Iron Gear Wheel:  1
-  time: 5.0
-  intermediate: true
-
-Science Pack 2:
-  ingredients:
-    Inserter:       1
-    Transport Belt: 1
-  time: 6.0
-  intermediate: true
-
-Science Pack 3:
-  ingredients:
-    Advanced Circuit:       1
-    Electric Mining Drill:  1
-    Engine Unit:            1
-  time: 12.0
-  intermediate: true
-
-Military Science Pack:
-  ingredients:
-    Piercing Rounds Magazine: 1
-    Grenade:                  1
-    Gun Turret:               1
-  produced: 2
-  time: 10.0
-  intermediate: true
-
-Production Science Pack:
-  ingredients:
-    Assembling Machine 1: 1
-    Electric Engine Unit: 1
-    Electric Furnace:     1
-  produced: 2
-  time: 14.0
-  intermediate: true
-
-High Tech Science Pack:
-  ingredients:
-    Battery:          1
-    Processing Unit:  3
-    Speed Module 1:   1
-    Copper Cable:    30
-  produced: 2
-  time: 14.0
-  intermediate: true
