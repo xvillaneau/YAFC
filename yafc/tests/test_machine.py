@@ -1,4 +1,3 @@
-
 import unittest
 
 from yafc.machine import Machine, Miner, Assembler
@@ -6,7 +5,6 @@ from yafc.item import Item, Mineral, Manufactured
 
 
 class TestMachine(unittest.TestCase):
-
     def setUp(self):
         self.m_item = Item("Machine")
 
@@ -64,8 +62,9 @@ class TestMachine(unittest.TestCase):
     def test_manufacture_compute(self):
         iron = Item("Iron Plates")
         gear = Manufactured("Iron Gear Wheel", {iron: 2}, 0.5, "assembling")
-        belt = Manufactured("Transport Belt", {iron: 1, gear: 1}, 0.5,
-                            "assembling", produced=2)
+        belt = Manufactured(
+            "Transport Belt", {iron: 1, gear: 1}, 0.5, "assembling", produced=2
+        )
 
         machine = Assembler(self.m_item, 1.25)
 

@@ -1,4 +1,3 @@
-
 from .item import Manufactured, Mineral
 from math import ceil
 
@@ -67,7 +66,7 @@ class Miner(Machine):
 
     @classmethod
     def serialize(cls, item, serial_data):
-        return cls(item, serial_data['speed'], serial_data['power'])
+        return cls(item, serial_data["speed"], serial_data["power"])
 
     def max_production(self, item):
         """
@@ -82,8 +81,9 @@ class Miner(Machine):
 
         self.test_item(item)
         if item.hardness >= self.power:
-            raise ValueError("{} is not powerful enough to mine {}"
-                             .format(self.item.name, item.name))
+            raise ValueError(
+                "{} is not powerful enough to mine {}".format(self.item.name, item.name)
+            )
 
         return (self.power - item.hardness) * self.speed * 60 / item.time
 
@@ -98,7 +98,7 @@ class BaseManufacture(Machine):
 
     @classmethod
     def serialize(cls, item, serial_data):
-        return cls(item, serial_data['speed'])
+        return cls(item, serial_data["speed"])
 
     def max_production(self, item):
         """
@@ -118,6 +118,7 @@ class Assembler(BaseManufacture):
     """
     Assembling machines.
     """
+
     name = "assembling"
 
 
@@ -125,6 +126,7 @@ class Furnace(BaseManufacture):
     """
     Furnaces.
     """
+
     name = "smelting"
 
 
@@ -132,6 +134,7 @@ class ChemicalPlant(BaseManufacture):
     """
     Chemical Plants.
     """
+
     name = "chemistry"
 
 
@@ -139,4 +142,5 @@ class RocketSile(BaseManufacture):
     """
     The rocket Silo
     """
+
     name = "rocket"

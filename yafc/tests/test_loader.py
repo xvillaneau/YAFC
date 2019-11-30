@@ -1,4 +1,3 @@
-
 import pytest
 from yafc.loader import GameSet
 
@@ -13,39 +12,45 @@ Item1:
 
 
 def test_load_str():
-        # Test reading YAML String
-        gs = GameSet(BASIC_YAML)
-        assert len(gs.items) == 1
-        assert "Item1" in gs.items
+    # Test reading YAML String
+    gs = GameSet(BASIC_YAML)
+    assert len(gs.items) == 1
+    assert "Item1" in gs.items
 
 
 def test_non_yaml_fail():
     with pytest.raises(ValueError):
-        GameSet("""
+        GameSet(
+            """
         nonsense:
           - Inconsistent: data
           Some: more
-        """)
+        """
+        )
 
 
 def test_non_dict_fail():
     with pytest.raises(ValueError):
-        GameSet("""
+        GameSet(
+            """
         - Item1
         - Item2
-        """)
+        """
+        )
 
     with pytest.raises(ValueError):
         GameSet("I am a Scalar!")
 
 
 def test_load_mineral():
-    gs = GameSet("""
+    gs = GameSet(
+        """
     Mineral:
       type: mining
       hardness: 0.9
       mining time: 2.0
-    """)
+    """
+    )
     assert "Mineral" in gs.items
     mineral = gs.items.get("Mineral")
     assert isinstance(mineral, Mineral)
@@ -54,7 +59,8 @@ def test_load_mineral():
 
 
 def test_load_manufactured():
-    gs = GameSet("""
+    gs = GameSet(
+        """
     Mineral:
       type: mining
       hardness: 0.9
@@ -67,7 +73,8 @@ def test_load_manufactured():
       produced: 2
     Item 2:
       type: null
-    """)
+    """
+    )
     item = gs.items.get("Item")
     mineral = gs.items.get("Mineral")
     assert isinstance(item, Manufactured)
@@ -77,13 +84,15 @@ def test_load_manufactured():
 
 
 def test_load_machine():
-    gs = GameSet("""
+    gs = GameSet(
+        """
     Machine:
       type: null
       machine:
         type: assembling
         speed: 1.25
-    """)
+    """
+    )
     machine = gs.machines.get("Machine")
     assert isinstance(machine, Assembler)
     assert machine.item.name == "Machine"

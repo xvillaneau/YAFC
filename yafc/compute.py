@@ -1,4 +1,3 @@
-
 from collections import defaultdict
 from .item import Item, Manufactured
 from .machine import Machine
@@ -21,12 +20,12 @@ def compute_flows(inputs, limits=set([])):
 
     prod_plan = defaultdict(float)
 
-    while any(isinstance(i, Manufactured) for i in head
-              if i.name not in limits):
+    while any(isinstance(i, Manufactured) for i in head if i.name not in limits):
 
         # Remove the next manufactured item from the
-        item = next(i for i in head if isinstance(i, Manufactured)
-                    if i.name not in limits)
+        item = next(
+            i for i in head if isinstance(i, Manufactured) if i.name not in limits
+        )
         """:type: Manufactured"""
         qty = head.pop(item)
 

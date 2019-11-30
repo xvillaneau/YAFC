@@ -1,4 +1,3 @@
-
 class Item:
     """
     Any enumerable object that can exist. Basic items have no recipe.

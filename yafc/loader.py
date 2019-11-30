@@ -14,11 +14,13 @@ def _machine_cls():
     :rtype: dict[str, machine.Machine]
     """
     return dict(
-        (cls.name, cls) for _, cls in machine.__dict__.items()
+        (cls.name, cls)
+        for _, cls in machine.__dict__.items()
         if isclass(cls)
         if issubclass(cls, machine.Machine)
         if cls.name is not None
     )
+
 
 MACHINE_CLS = _machine_cls()
 
@@ -53,18 +55,18 @@ class GameSet:
 
     def _load_item(self, name, gs_dict):
         props = gs_dict.pop(name)
-        item_type = props.get('type', 'assembling')
+        item_type = props.get("type", "assembling")
 
         if item_type is None:
             obj = Item(name)
 
-        elif item_type == 'mining':
-            obj = Mineral(name, props['mining time'], props['hardness'])
+        elif item_type == "mining":
+            obj = Mineral(name, props["mining time"], props["hardness"])
 
         else:
             # Otherwise: Manufactured item
             ingredients = {}
-            for i_name, i_qty in props['ingredients'].items():
+            for i_name, i_qty in props["ingredients"].items():
 
                 if i_name not in self.items:
                     # Recursively load ingredient if not loaded yet
@@ -72,16 +74,15 @@ class GameSet:
                 ingredients[self.items[i_name]] = i_qty
 
             obj = Manufactured(
-                name, ingredients, props['time'], item_type,
-                props.get('produced', 1)
+                name, ingredients, props["time"], item_type, props.get("produced", 1)
             )
 
-        if props.get('machine'):
-            self._load_machine(obj, props['machine'])
+        if props.get("machine"):
+            self._load_machine(obj, props["machine"])
 
         self.items[name] = obj
 
     def _load_machine(self, item, props):
-        machine_type = props['type']
+        machine_type = props["type"]
         obj = MACHINE_CLS[machine_type].serialize(item, props)
         self.machines[item.name] = obj
