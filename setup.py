@@ -8,8 +8,8 @@ setuptools.setup(
     author="Xavier Villaneau",
     author_email="xvillaneau@gmail.com",
     license="MIT",
-    packages=["yafc"],
-    install_requires=['pyYAML'],
+    packages=["yafc", "libyafc"],
+    install_requires=["pyYAML", "marshmallow"],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     entry_points={

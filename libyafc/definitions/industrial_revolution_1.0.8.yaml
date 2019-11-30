@@ -1,0 +1,72 @@
+About:
+  Setup: Industrial Revolution
+  Version: 1.0.8
+
+# Anchors for common recipes
+.Crushing: &Crushing
+  Time: 1.6s
+  Machines: Any Crusher
+
+.Smelting: &Smelting
+  Time: 38.4s
+  Machines: Any Furnace
+
+.Alloying: &Alloying
+  Time: 19.2s
+  Machines: Any Furnace
+
+# List of Recipes
+Recipes:
+
+  - Output: Electronic Circuit
+    Input:
+      Glass Sheet: 1
+      Copper Foil: 3
+    Time: 1s
+    Machines: Any Assembler
+
+  - Output:
+      Copper Foil: 2
+    Input: Copper Ingot
+    Time: 1s
+    Machines: Any Assembler
+
+  - <<: *Alloying
+    Output:
+      Glass Sheet: 12
+    Input:
+      Tin Ingot: 3
+      Glass Ingot: 6
+
+  - <<: *Alloying
+    Output:
+      Glass Ingot: 12
+    Input:
+      Crushed Tin Ore: 2
+      Sand: 10
+
+  - <<: *Smelting
+    Name: Copper Ore Smelting
+    Output:
+      Copper Ingot: 12
+    Input:
+      Copper Ore: 12
+
+  - <<: *Smelting
+    Name: Tin Ore Smelting
+    Output:
+      Tin Ingot: 12
+    Input:
+      Tin Ore: 12
+
+  - <<: *Crushing
+    Output: Sand
+    Input: Gravel
+
+  - <<: *Crushing
+    Output: Gravel
+    Input: Stone
+
+  - <<: *Crushing
+    Output: Crushed Tin Ore
+    Input: Tin Ore
