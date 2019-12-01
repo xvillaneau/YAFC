@@ -69,8 +69,8 @@ class RecipeSchema(mllw.Schema):
         unknown = "EXCLUDE"
 
     Time = DurationField(required=True, attribute="time")
-    Input = RecipeIOField(default={}, attribute="input")
-    Output = RecipeIOField(default={}, attribute="output")
+    Input = RecipeIOField(missing={}, attribute="input")
+    Output = RecipeIOField(missing={}, attribute="output")
     Name = mllw.fields.String(attribute="name")
 
     @mllw.post_load

@@ -3,6 +3,10 @@ About:
   Version: 1.0.8
 
 # Anchors for common recipes
+.Mining: &Mining
+  Time: 1s
+  Machines: Any Drill
+
 .Crushing: &Crushing
   Time: 1.6s
   Machines: Any Crusher
@@ -18,47 +22,17 @@ About:
 # List of Recipes
 Recipes:
 
-  - Output: Electronic Circuit
-    Input:
-      Glass Sheet: 1
-      Copper Foil: 3
-    Time: 1s
-    Machines: Any Assembler
+  # Mining
+  - <<: *Mining
+    Output: Stone
 
-  - Output:
-      Copper Foil: 2
-    Input: Copper Ingot
-    Time: 1s
-    Machines: Any Assembler
+  - <<: *Mining
+    Output: Copper Ore
 
-  - <<: *Alloying
-    Output:
-      Glass Sheet: 12
-    Input:
-      Tin Ingot: 3
-      Glass Ingot: 6
+  - <<: *Mining
+    Output: Tin Ore
 
-  - <<: *Alloying
-    Output:
-      Glass Ingot: 12
-    Input:
-      Crushed Tin Ore: 2
-      Sand: 10
-
-  - <<: *Smelting
-    Name: Copper Ore Smelting
-    Output:
-      Copper Ingot: 12
-    Input:
-      Copper Ore: 12
-
-  - <<: *Smelting
-    Name: Tin Ore Smelting
-    Output:
-      Tin Ingot: 12
-    Input:
-      Tin Ore: 12
-
+  # Ore processing
   - <<: *Crushing
     Output: Sand
     Input: Gravel
@@ -70,3 +44,91 @@ Recipes:
   - <<: *Crushing
     Output: Crushed Tin Ore
     Input: Tin Ore
+
+  - <<: *Crushing
+    Output: Crushed Copper Ore
+    Input: Copper Ore
+
+  # Smelting
+  - <<: *Smelting
+    Name: Copper Ore Smelting
+    Output:
+      Copper Ingot: 12
+    Input:
+      Copper Ore: 12
+
+  - <<: *Smelting
+    Name: Crushed Copper Ore Smelting
+    Output:
+      Copper Ingot: 12
+    Input:
+      Crushed Copper Ore: 10
+
+  - <<: *Smelting
+    Name: Tin Ore Smelting
+    Output:
+      Tin Ingot: 12
+    Input:
+      Tin Ore: 12
+
+  - <<: *Smelting
+    Name: Crushed Tin Ore Smelting
+    Output:
+      Tin Ingot: 12
+    Input:
+      Crushed Tin Ore: 10
+
+  # Alloys
+  - <<: *Alloying
+    Output:
+      Glass Ingot: 12
+    Input:
+      Crushed Tin Ore: 2
+      Sand: 10
+
+  - <<: *Alloying
+    Output:
+      Glass Sheet: 12
+    Input:
+      Tin Ingot: 3
+      Glass Ingot: 6
+
+  - <<: *Alloying
+    Output:
+      Bronze Ingot: 12
+    Input:
+      Tin Ingot: 4
+      Copper Ingot: 8
+
+  # Copper products
+  - Output:
+      Copper Rod: 2
+    Input: Copper Ingot
+    Time: 1s
+    Machines: Any Assembler
+
+  - Output:
+      Copper Foil: 2
+    Input: Copper Ingot
+    Time: 1s
+    Machines: Any Assembler
+
+  - Output: Copper Cable
+    Input: Copper Rod
+    Time: 0.5s
+    Machines: Any Assembler
+
+  # Electronics
+  - Output: Electronic Circuit
+    Input:
+      Glass Sheet: 1
+      Copper Foil: 3
+    Time: 1s
+    Machines: Any Assembler
+
+  - Output: Logic Controller
+    Input:
+      Electronic Circuit: 8
+      Copper Cable: 8
+    Time: 4s
+    Machines: Any Assembler
