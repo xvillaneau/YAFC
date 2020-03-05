@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from collections import defaultdict
 from dataclasses import dataclass
 from itertools import product
-from typing import Dict, List
+from typing import Dict, List, Set
 
 from .models import Definitions, Ingredient, Recipe
 
@@ -35,21 +35,23 @@ class ProductionUnit(WorkflowNode):
 @dataclass(frozen=True)
 class ResourceFlow:
     ingredient: Ingredient
-    from_unit: int
-    to_unit: int
+    from_node: int
+    to_node: int
 
     def __repr__(self):
-        return f"Flow({self.ingredient}, {self.from_unit} -> {self.to_unit})"
+        return f"Flow({self.ingredient}, {self.from_node} -> {self.to_node})"
 
 
 class Workflow:
     def __init__(self):
-        self.units: List[WorkflowNode] = []
+        self.nodes: List[WorkflowNode] = []
         self.flows_to: List[List[ResourceFlow]] = []
         self.flows_from: List[List[ResourceFlow]] = []
+        self._free_input: Dict[int, Set[Ingredient]] = defaultdict(set)
+        self._free_output: Dict[int, Set[Ingredient]] = defaultdict(set)
 
     def __len__(self):
-        return len(self.units)
+        return len(self.nodes)
 
     @classmethod
     def from_definitions(cls, definitions: Definitions, link_all=True):
@@ -76,16 +78,19 @@ class Workflow:
 
         return workflow
 
-    def add_node(self, unit: WorkflowNode) -> int:
-        self.units.append(unit)
+    def add_node(self, node: WorkflowNode) -> int:
+        node_id = len(self)
+        self.nodes.append(node)
         self.flows_from.append([])
         self.flows_to.append([])
-        return len(self) - 1
+        self._free_input[node_id] = set(node.input)
+        self._free_output[node_id] = set(node.output)
+        return node_id
 
-    def link(self, ingredient: Ingredient, from_unit: int, to_unit: int):
+    def link(self, ingredient: Ingredient, from_node: int, to_node: int):
         try:
-            _from = self.units[from_unit]
-            _to = self.units[to_unit]
+            _from = self.nodes[from_node]
+            _to = self.nodes[to_node]
         except (LookupError, TypeError):
             raise ValueError("Invalid indices")
         if ingredient not in _from.output:
@@ -93,20 +98,22 @@ class Workflow:
         if ingredient not in _to.input:
             raise ValueError(f"{ingredient} not in input of {_to}")
 
-        flow = ResourceFlow(ingredient, from_unit, to_unit)
-        self.flows_from[from_unit].append(flow)
-        self.flows_to[to_unit].append(flow)
+        flow = ResourceFlow(ingredient, from_node, to_node)
+        self.flows_from[from_node].append(flow)
+        self.flows_to[to_node].append(flow)
+        self._free_output[from_node].discard(ingredient)
+        self._free_input[to_node].discard(ingredient)
 
-    def downstream_of(self, unit: int, ingredient: Ingredient = None):
+    def downstream_of(self, node: int, ingredient: Ingredient = None):
         return [
-            flow.to_unit
-            for flow in self.flows_from[unit]
+            flow.to_node
+            for flow in self.flows_from[node]
             if ingredient is None or flow.ingredient == ingredient
         ]
 
-    def upstream_of(self, unit: int, ingredient: Ingredient = None):
+    def upstream_of(self, node: int, ingredient: Ingredient = None):
         return [
-            flow.from_unit
-            for flow in self.flows_to[unit]
+            flow.from_node
+            for flow in self.flows_to[node]
             if ingredient is None or flow.ingredient == ingredient
         ]
